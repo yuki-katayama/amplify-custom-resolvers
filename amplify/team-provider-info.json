@@ -10,6 +10,11 @@
       "StackName": "amplify-nuxtappsync-dev-e7b53",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:065394252477:stack/amplify-nuxtappsync-dev-e7b53/12f41390-f42f-11ee-811e-0e44606502b1",
       "AmplifyAppId": "d1gjg2bvymc105"
+    },
+    "categories": {
+      "api": {
+        "nuxtappsync": {}
+      }
     }
   }
 }
