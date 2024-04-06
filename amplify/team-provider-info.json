@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nuxtappsync-dev-e7b53-authRole",
+      "UnauthRoleArn": "arn:aws:iam::065394252477:role/amplify-nuxtappsync-dev-e7b53-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::065394252477:role/amplify-nuxtappsync-dev-e7b53-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-nuxtappsync-dev-e7b53-deployment",
+      "UnauthRoleName": "amplify-nuxtappsync-dev-e7b53-unauthRole",
+      "StackName": "amplify-nuxtappsync-dev-e7b53",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:065394252477:stack/amplify-nuxtappsync-dev-e7b53/12f41390-f42f-11ee-811e-0e44606502b1",
+      "AmplifyAppId": "d1gjg2bvymc105"
+    }
+  }
+}
