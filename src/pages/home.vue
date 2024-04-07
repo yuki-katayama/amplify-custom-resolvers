@@ -1,29 +1,30 @@
 <template>
 	<div class="chat-container">
-		<div class="messages" v-if="messages.length>0">
-			<div v-for="message in messages" :key="message.id" class="message"
-				:class="message.name===user.signInDetails.loginId? 'self':'other'">
-				<div class="message-bubble">
-					<p>{{message.content}}</p>
-					<figure>
-						<img v-if="message.imgUrl" :src="message.imgUrl.url.href" alt="Message Image" width="100%"
-							height="100%" />
-					</figure>
-				</div>
-				<p>{{message.name}}</p>
-				<span class="timestamp">{{formatDate(message.createdAt)}}</span>
-			</div>
+	  <div class="messages" v-if="messages.length > 0">
+		<div v-for="message in messages" :key="message.id" class="message" :class="message.name === user.signInDetails.loginId ? 'self' : ''">
+		  <div class="message-bubble" :class="message.name === user.signInDetails.loginId ? 'self' : ''">
+			<p class="message-content">{{ message.content }}</p>
+			<figure v-if="message.imgUrl">
+			  <img :src="message.imgUrl.url.href" alt="Message Image"/>
+			</figure>
+		  </div>
+		  <p class="message-sender">{{ message.name }}</p>
+		  <span class="timestamp">{{ formatDate(message.createdAt) }}</span>
 		</div>
-		<div class="input-area">
-			<textarea v-model="inputMessage" placeholder="Type a message"></textarea>
-			<v-btn @click="onSendMessage">Send</v-btn>
-			<v-btn @click="onLogout">Logout</v-btn>
+	  </div>
+	  <div class="input-area">
+		<textarea v-model="inputMessage" placeholder="Type a message"></textarea>
+		<button @click="onSendMessage">Send</button>
+		<button @click="onLogout">Logout</button>
+	  </div>
+	  <div>
+		<v-file-input v-model="fileinput" label="File input" @change="onFileChange" clearable></v-file-input>
+		<div v-if="previewUrl">
+			<img :src="previewUrl" alt="Preview" />
 		</div>
-		<div>
-			<v-file-input v-model="fileinput" label="File input" clearable></v-file-input>
-		</div>
+	  </div>
 	</div>
-</template>
+  </template>
 
 <script setup lang="ts">
 import { ref, onUnmounted, onMounted, watch, nextTick } from 'vue';
@@ -47,6 +48,7 @@ const messages=ref<models.Message[]>([]);
 const inputMessage=ref('');
 
 const fileinput=ref<File[]>([])
+const previewUrl=ref<string | null>(null)
 
 const formatDate=(date: string) => {
 	const originalDate=new Date("2024-04-07T20:15:30.971Z");
@@ -59,8 +61,14 @@ const formatDate=(date: string) => {
 	const formattedDate=`${month}/${day} ${hours}:${minutes}`;
 	return formattedDate;
 }
+
+const onFileChange = (event: any) => {
+      const file = event.target.files[0];
+      previewUrl.value = URL.createObjectURL(file);
+      // ここでファイルをサーバーにアップロード
+}
+
 const uploadFiles=async () => {
-	console.log(fileinput.value[0])
 	if (fileinput.value.length>0) {
 		try {
 			return await storage.uploadData({
@@ -92,7 +100,6 @@ const onSendMessage=async () => {
 			}
 		}
 	});
-	inputMessage.value="";
 };
 
 // メッセージを取得し、createdAtで降順に並び替える関数
@@ -139,6 +146,9 @@ onMounted(async () => {
 			next: async (data: any) => {
 				console.log("triggered onCreateTodo");
 				console.log(data);
+				previewUrl.value=null;
+				fileinput.value=[];
+				inputMessage.value="";
 				await getMessages();
 			},
 			error: (error: any) => console.warn(error)
@@ -157,65 +167,92 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-figure {
-	min-width: 20%;
-}
-
 .chat-container {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .messages {
-	flex: 1;
-	overflow-y: auto;
-	padding: 1em;
-	border-bottom: 1px solid #ccc;
-	// width: 50vw;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
 	.message {
-		position: relative;
-		margin-bottom: 1em;
-		padding: 1em;
-		// background: #e0e0e0;
-		border-radius: 10px;
-		width: 100%;
-		max-width: 80%;
-		display: flex;
-		gap: 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 15px;
+	animation: fadeIn 0.5s ease;
+
+	@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 	}
 
-	.self {
-		background: #dcf8c6;
-		/* 自分のメッセージ */
-		margin-left: auto;
-	}
-
-	.other {
-		background: #e0e0e0;
-		/* 他の人のメッセージ */
-	}
+  &.self {
+    align-items: flex-end;
+  }
+  .message-bubble {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    &.self {
+      background-color: #dcf8c6;
+    }
+    img {
+      max-width: 200px;
+      border-radius: 10px;
+    }
+  }
+  .message-content {
+    margin: 0;
+  }
+  .message-sender {
+    font-size: 0.8em;
+    opacity: 0.8;
+  }
+  .timestamp {
+    font-size: 0.7em;
+    opacity: 0.7;
+  }
 }
-
 
 .input-area {
-	display: flex;
-	padding: 1em;
-	border-top: 1px solid #ccc;
-
-	& input {
-		flex: 1;
-		margin-right: 1em;
-	}
-
-	/* CSSでユーザーごとに異なるクラスを適用 */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  gap: 1em;
+  textarea {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    resize: none;
+  }
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    &:hover {
+      background-color: #45a049;
+    }
+  }
 }
 
-.input-area textarea {
-	flex: 1;
-	margin-right: 1em;
-	resize: none;
-	/* ユーザーによるリサイズを無効化 */
-}
 </style>
