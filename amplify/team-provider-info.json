@@ -14,6 +14,15 @@
     "categories": {
       "api": {
         "nuxtappsync": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1gjg2bvymc105",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "nuxtappsync5a447269": {}
       }
     }
   }

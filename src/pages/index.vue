@@ -23,6 +23,12 @@
 		</tr>
 	  </tbody>
 	</table>
+	<authenticator>
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
   </template>
   
   <script setup lang="ts">
@@ -32,7 +38,9 @@
   import * as mutations from "@/graphql/mutations";
   import * as subscriptions from "@/graphql/subscriptions";
   import * as models from "@/API"
-  
+  import { Authenticator } from "@aws-amplify/ui-vue";
+  import "@aws-amplify/ui-vue/styles.css";
+
   const todoList = ref<models.Todo[]>([])
   const inputName = ref<string>("")
   const inputDescription = ref<string>("")
@@ -59,30 +67,30 @@
 	})
 	todoList.value = result.data.listTodos.items
   }
-  
+
   const unSubscribeCreateTodo = async () => {
 	createSub.value.unsubscribe();
   }
-  
+
   const subscribeCreateTodo = async () => {
 	// Subscribe to creation of Todo
 	createSub.value = client
 	.graphql({ query: subscriptions.onCreateTodo })
 	.subscribe({
-	  next: ({ data }) => {
+	  next: (data: models.Todo) => {
 		console.log("triggered onCreateTodo")
 		console.log(data)
 	  },
-	  error: (error) => console.warn(error)
+	  error: (error: any ) => console.warn(error)
 	});
   }
-  
+
   onUnmounted(() => {
 	createSub.value.unsubscribe();
 	console.log("unsubscribed");
   });
   </script>
-  
+
   <style>
   th,
   td {
