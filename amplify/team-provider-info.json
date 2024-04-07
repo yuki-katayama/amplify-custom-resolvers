@@ -21,8 +21,11 @@
           "type": "manual"
         }
       },
+      "storage": {
+        "s373d6c8d3": {}
+      },
       "auth": {
-        "nuxtappsync1286bdb4": {}
+        "nuxtappsyncba964420": {}
       }
     }
   }

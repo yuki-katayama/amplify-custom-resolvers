@@ -6,3 +6,5 @@ export interface User {
 		authFlowType: string;
 	}
 }
+
+export type StorageAccessLevel = 'public' | 'protected' | 'private'

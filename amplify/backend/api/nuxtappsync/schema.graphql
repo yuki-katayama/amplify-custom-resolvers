@@ -6,10 +6,5 @@ type Message @model {
   id: ID!
   name: String!
   content: String
-}
-
-type User @model {
-  id: ID!
-  userId: String!
-  email: AWSEmail!
+  img: String
 }

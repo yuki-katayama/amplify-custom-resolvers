@@ -13,6 +13,7 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -32,6 +33,7 @@ export const listMessages = /* GraphQL */ `query ListMessages(
       id
       name
       content
+      img
       createdAt
       updatedAt
       __typename
@@ -44,33 +46,3 @@ export const listMessages = /* GraphQL */ `query ListMessages(
   APITypes.ListMessagesQueryVariables,
   APITypes.ListMessagesQuery
 >;
-export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
-  getUser(id: $id) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
-export const listUsers = /* GraphQL */ `query ListUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      userId
-      email
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;

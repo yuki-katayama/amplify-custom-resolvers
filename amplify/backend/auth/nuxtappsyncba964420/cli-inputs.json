@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "nuxtappsync1286bdb4_identitypool_1286bdb4",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "nuxtap1286bdb4",
-    "userPoolName": "nuxtappsync1286bdb4_userpool_1286bdb4",
+    "identityPoolName": "nuxtappsyncba964420_identitypool_ba964420",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "nuxtapba964420",
+    "userPoolName": "nuxtappsyncba964420_userpool_ba964420",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "nuxtap1286bdb4_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "nuxtapba964420_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "1286bdb4",
-    "resourceName": "nuxtappsync1286bdb4",
+    "sharedId": "ba964420",
+    "resourceName": "nuxtappsyncba964420",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
@@ -43,6 +43,20 @@
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": []
   }
 }

@@ -16,6 +16,7 @@ export const createMessage = /* GraphQL */ `mutation CreateMessage(
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -33,6 +34,7 @@ export const updateMessage = /* GraphQL */ `mutation UpdateMessage(
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -50,6 +52,7 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -58,55 +61,4 @@ export const deleteMessage = /* GraphQL */ `mutation DeleteMessage(
 ` as GeneratedMutation<
   APITypes.DeleteMessageMutationVariables,
   APITypes.DeleteMessageMutation
->;
-export const createUser = /* GraphQL */ `mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  createUser(input: $input, condition: $condition) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateUserMutationVariables,
-  APITypes.CreateUserMutation
->;
-export const updateUser = /* GraphQL */ `mutation UpdateUser(
-  $input: UpdateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  updateUser(input: $input, condition: $condition) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateUserMutationVariables,
-  APITypes.UpdateUserMutation
->;
-export const deleteUser = /* GraphQL */ `mutation DeleteUser(
-  $input: DeleteUserInput!
-  $condition: ModelUserConditionInput
-) {
-  deleteUser(input: $input, condition: $condition) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteUserMutationVariables,
-  APITypes.DeleteUserMutation
 >;

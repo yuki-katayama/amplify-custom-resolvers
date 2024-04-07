@@ -6,11 +6,13 @@ export type CreateMessageInput = {
   id?: string | null,
   name: string,
   content?: string | null,
+  img?: string | null,
 };
 
 export type ModelMessageConditionInput = {
   name?: ModelStringInput | null,
   content?: ModelStringInput | null,
+  img?: ModelStringInput | null,
   and?: Array< ModelMessageConditionInput | null > | null,
   or?: Array< ModelMessageConditionInput | null > | null,
   not?: ModelMessageConditionInput | null,
@@ -63,6 +65,7 @@ export type Message = {
   id: string,
   name: string,
   content?: string | null,
+  img?: string | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -71,44 +74,10 @@ export type UpdateMessageInput = {
   id: string,
   name?: string | null,
   content?: string | null,
+  img?: string | null,
 };
 
 export type DeleteMessageInput = {
-  id: string,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  userId: string,
-  email: string,
-};
-
-export type ModelUserConditionInput = {
-  userId?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  userId: string,
-  email: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateUserInput = {
-  id: string,
-  userId?: string | null,
-  email?: string | null,
-};
-
-export type DeleteUserInput = {
   id: string,
 };
 
@@ -116,6 +85,7 @@ export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   content?: ModelStringInput | null,
+  img?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageFilterInput | null > | null,
@@ -145,27 +115,11 @@ export type ModelMessageConnection = {
   nextToken?: string | null,
 };
 
-export type ModelUserFilterInput = {
-  id?: ModelIDInput | null,
-  userId?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  createdAt?: ModelStringInput | null,
-  updatedAt?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
-};
-
 export type ModelSubscriptionMessageFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   content?: ModelSubscriptionStringInput | null,
+  img?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
@@ -202,16 +156,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  userId?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionStringInput | null,
-  updatedAt?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
-};
-
 export type CreateMessageMutationVariables = {
   input: CreateMessageInput,
   condition?: ModelMessageConditionInput | null,
@@ -223,6 +167,7 @@ export type CreateMessageMutation = {
     id: string,
     name: string,
     content?: string | null,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -239,6 +184,7 @@ export type UpdateMessageMutation = {
     id: string,
     name: string,
     content?: string | null,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -255,54 +201,7 @@ export type DeleteMessageMutation = {
     id: string,
     name: string,
     content?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateUserMutationVariables = {
-  input: CreateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type CreateUserMutation = {
-  createUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateUserMutationVariables = {
-  input: UpdateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type UpdateUserMutation = {
-  updateUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type DeleteUserMutation = {
-  deleteUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -318,6 +217,7 @@ export type GetMessageQuery = {
     id: string,
     name: string,
     content?: string | null,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -337,42 +237,7 @@ export type ListMessagesQuery = {
       id: string,
       name: string,
       content?: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetUserQueryVariables = {
-  id: string,
-};
-
-export type GetUserQuery = {
-  getUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListUsersQuery = {
-  listUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      userId: string,
-      email: string,
+      img?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -390,6 +255,7 @@ export type OnCreateMessageSubscription = {
     id: string,
     name: string,
     content?: string | null,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -405,6 +271,7 @@ export type OnUpdateMessageSubscription = {
     id: string,
     name: string,
     content?: string | null,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -420,51 +287,7 @@ export type OnDeleteMessageSubscription = {
     id: string,
     name: string,
     content?: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnCreateUserSubscription = {
-  onCreateUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnUpdateUserSubscription = {
-  onUpdateUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnDeleteUserSubscription = {
-  onDeleteUser?:  {
-    __typename: "User",
-    id: string,
-    userId: string,
-    email: string,
+    img?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,

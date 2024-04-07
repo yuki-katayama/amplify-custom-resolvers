@@ -1,0 +1,13 @@
+{
+  "resourceName": "s373d6c8d3",
+  "policyUUID": "73d6c8d3",
+  "bucketName": "nuxtappsync11823be644af45859ca1b1dea7087758",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}

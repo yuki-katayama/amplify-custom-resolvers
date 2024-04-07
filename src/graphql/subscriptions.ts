@@ -13,6 +13,7 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filt
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -27,6 +28,7 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filt
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -41,6 +43,7 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
     id
     name
     content
+    img
     createdAt
     updatedAt
     __typename
@@ -49,46 +52,4 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
 ` as GeneratedSubscription<
   APITypes.OnDeleteMessageSubscriptionVariables,
   APITypes.OnDeleteMessageSubscription
->;
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-  onCreateUser(filter: $filter) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateUserSubscriptionVariables,
-  APITypes.OnCreateUserSubscription
->;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-  onUpdateUser(filter: $filter) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateUserSubscriptionVariables,
-  APITypes.OnUpdateUserSubscription
->;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-  onDeleteUser(filter: $filter) {
-    id
-    userId
-    email
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteUserSubscriptionVariables,
-  APITypes.OnDeleteUserSubscription
 >;

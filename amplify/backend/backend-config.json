@@ -18,7 +18,7 @@
     }
   },
   "auth": {
-    "nuxtappsync1286bdb4": {
+    "nuxtappsyncba964420": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -68,6 +68,13 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    }
+  },
+  "storage": {
+    "s373d6c8d3": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }
