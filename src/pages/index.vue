@@ -1,100 +1,33 @@
+
 <template>
-	<label>名前</label>
-	<input v-model="inputName"><br>
-	<label>すること</label>
-	<input v-model="inputDescription"><br>
-	<button @click="createTodo()">createTodo</button>
-	<button @click="getTodoList()">getTodoList</button>
-	<button @click="unSubscribeCreateTodo()">unSubscribeCreateTodo</button>
-	<button @click="subscribeCreateTodo()">subscribeCreateTodo</button>
-	<table>
-	  <thead>
-		<tr>
-		  <th>id</th>
-		  <th>名前</th>
-		  <th>すること</th>
-		</tr>
-	  </thead>
-	  <tbody>
-		<tr v-for="todo in todoList" :key="todo.id">
-		  <td>{{ todo.id }}</td>
-		  <td>{{ todo.name }}</td>
-		  <td>{{ todo.description }}</td>
-		</tr>
-	  </tbody>
-	</table>
-	<authenticator>
-    <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
-    </template>
-  </authenticator>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref, onUnmounted } from 'vue';
-  import { generateClient } from "aws-amplify/api";
-  import * as queries from "@/graphql/queries";
-  import * as mutations from "@/graphql/mutations";
-  import * as subscriptions from "@/graphql/subscriptions";
-  import * as models from "@/API"
-  import { Authenticator } from "@aws-amplify/ui-vue";
-  import "@aws-amplify/ui-vue/styles.css";
+	<div v-if="user">
+		<Home />
+	</div>
+	<div v-else>
+		<h1>ログインしてください。</h1>
+		<authenticator>
+			<template v-slot="{ user, signOut }">
+				<h1>Hello {{ user.username }}!</h1>
+				<button @click="signOut">Sign Out</button>
+			</template>
+		</authenticator>
+	</div>
+</template>
 
-  const todoList = ref<models.Todo[]>([])
-  const inputName = ref<string>("")
-  const inputDescription = ref<string>("")
-  const createSub = ref<any>(null)
-  const client = generateClient();
-  
-  const createTodo = async () => {
-	await client.graphql({
-	  query: mutations.createTodo,
-	  variables: {
-		input: {
-		  name: inputName.value,
-		  description: inputDescription.value
-		}
-	  }
-	})
-	inputName.value = ""
-	inputDescription.value = ""
-  }
-  
-  const getTodoList = async () => {
-	const result = await client.graphql({
-	  query: queries.listTodos
-	})
-	todoList.value = result.data.listTodos.items
-  }
+<script setup lang="ts">
+import { ref, watch } from 'vue';
+import { Authenticator, useAuthenticator } from "@aws-amplify/ui-vue";
+import "@aws-amplify/ui-vue/styles.css";
+import * as myModels from "@/models/models";
+import Home from "@/pages/home"
 
-  const unSubscribeCreateTodo = async () => {
-	createSub.value.unsubscribe();
-  }
+const auth = useAuthenticator();
+const user = ref<myModels.User>(auth.user); // リアクティブな参照としてユーザー情報を保持
 
-  const subscribeCreateTodo = async () => {
-	// Subscribe to creation of Todo
-	createSub.value = client
-	.graphql({ query: subscriptions.onCreateTodo })
-	.subscribe({
-	  next: (data: models.Todo) => {
-		console.log("triggered onCreateTodo")
-		console.log(data)
-	  },
-	  error: (error: any ) => console.warn(error)
-	});
-  }
+// auth.userの変更を監視
+watch(() => auth.user, (newUser: myModels.User) => {
+  console.log("Authenticated user:", newUser);
+  user.value = newUser; // ユーザー情報の更新
+}); // コンポーネントマウント時に即座に実行
 
-  onUnmounted(() => {
-	createSub.value.unsubscribe();
-	console.log("unsubscribed");
-  });
-  </script>
-
-  <style>
-  th,
-  td {
-	border: 1px solid rgb(160 160 160);
-	padding: 8px 10px;
-  }
-  </style>
+</script>

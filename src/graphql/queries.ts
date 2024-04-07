@@ -8,27 +8,30 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
+  getMessage(id: $id) {
     id
     name
-    description
+    content
     createdAt
     updatedAt
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetTodoQueryVariables, APITypes.GetTodoQuery>;
-export const listTodos = /* GraphQL */ `query ListTodos(
-  $filter: ModelTodoFilterInput
+` as GeneratedQuery<
+  APITypes.GetMessageQueryVariables,
+  APITypes.GetMessageQuery
+>;
+export const listMessages = /* GraphQL */ `query ListMessages(
+  $filter: ModelMessageFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
-      description
+      content
       createdAt
       updatedAt
       __typename
@@ -37,4 +40,37 @@ export const listTodos = /* GraphQL */ `query ListTodos(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
+` as GeneratedQuery<
+  APITypes.ListMessagesQueryVariables,
+  APITypes.ListMessagesQuery
+>;
+export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    userId
+    email
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+export const listUsers = /* GraphQL */ `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      userId
+      email
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
