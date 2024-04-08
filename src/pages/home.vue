@@ -1,6 +1,6 @@
 <template>
 	<div class="chat-container">
-	  <div class="messages" v-if="messages.length > 0">
+	  <div class="messages">
 		<div v-for="message in messages" :key="message.id" class="message" :class="message.name === user.signInDetails.loginId ? 'self' : ''">
 		  <div class="message-bubble" :class="message.name === user.signInDetails.loginId ? 'self' : ''">
 			<p class="message-content">{{ message.content }}</p>
@@ -29,29 +29,27 @@
 <script setup lang="ts">
 import { ref, onUnmounted, onMounted, watch, nextTick } from 'vue';
 import { generateClient } from "aws-amplify/api";
-import * as queries from "@/graphql/queries";
-import * as mutations from "@/graphql/mutations";
-import * as subscriptions from "@/graphql/subscriptions";
-import * as models from "@/API";
+import { listMessages } from "@/graphql/queries";
+import { createMessage } from "@/graphql/mutations";
+import { onCreateMessage } from "@/graphql/subscriptions";
 import "@aws-amplify/ui-vue/styles.css";
 import { useAuthenticator } from "@aws-amplify/ui-vue";
-import * as myModels from "@/models/models";
-import * as storage from 'aws-amplify/storage'
-
+import type { User, MessageWithImgUrl } from "@/models/models";
+import { uploadData, getUrl } from 'aws-amplify/storage';
 
 const auth=useAuthenticator();
 const client=generateClient();
 const createSub=ref<any>(null);
 
-const user=ref<myModels.User>(auth.user); // リアクティブな参照としてユーザー情報を保持
-const messages=ref<models.Message[]>([]);
+const user=ref<User>(auth.user); // リアクティブな参照としてユーザー情報を保持
+const messages=ref<MessageWithImgUrl[]>([]);
 const inputMessage=ref('');
 
 const fileinput=ref<File[]>([])
 const previewUrl=ref<string | null>(null)
 
 const formatDate=(date: string) => {
-	const originalDate=new Date("2024-04-07T20:15:30.971Z");
+	const originalDate=new Date(date);
 
 	const month=String(originalDate.getMonth()+1).padStart(2, '0'); // 月は0-indexedなので+1する
 	const day=String(originalDate.getDate()).padStart(2, '0');
@@ -71,7 +69,7 @@ const onFileChange = (event: any) => {
 const uploadFiles=async () => {
 	if (fileinput.value.length>0) {
 		try {
-			return await storage.uploadData({
+			return await uploadData({
 				key: fileinput.value[0].name,
 				data: fileinput.value[0],
 			}).result;
@@ -82,7 +80,7 @@ const uploadFiles=async () => {
 	return null;
 };
 
-watch(() => auth.user, (newUser: myModels.User) => {
+watch(() => auth.user, (newUser: User) => {
 	console.log("Authenticated user:", newUser);
 	user.value=newUser; // ユーザー情報の更新
 });
@@ -91,7 +89,7 @@ const onSendMessage=async () => {
 	console.log(user.value.signInDetails.loginId, inputMessage.value)
 	const file=await uploadFiles();
 	await client.graphql({
-		query: mutations.createMessage,
+		query: createMessage,
 		variables: {
 			input: {
 				name: user.value.signInDetails.loginId,
@@ -105,21 +103,18 @@ const onSendMessage=async () => {
 // メッセージを取得し、createdAtで降順に並び替える関数
 const getMessages=async () => {
 	const result=await client.graphql({
-		query: queries.listMessages
+		query: listMessages
 	});
 
-	const messagesWithImgUrl=await Promise.all(result.data.listMessages.items.map(async (message: models.Message) => {
+	const messagesWithImgUrl=await Promise.all((result.data.listMessages.items as  MessageWithImgUrl[]).map(async (message: MessageWithImgUrl) => {
 		if (message.img) {
 			console.log(message.img);
-			message.imgUrl=await storage.getUrl({
+			message.imgUrl=await getUrl({
 				key: message.img,
 				options: {
 					expiresIn: 60*60
 				}
 			});
-			//   message.imgUrl = imgData.url.toString(); // 画像のURLをメッセージオブジェクトに追加
-			//   console.log(imgData); 
-			console.log(message.imgUrl)
 		}
 		return message;
 	}));
@@ -141,7 +136,7 @@ onMounted(async () => {
 	// Subscribe to creation of Todo
 	await getMessages();
 	createSub.value=client
-		.graphql({ query: subscriptions.onCreateMessage })
+		.graphql({ query: onCreateMessage })
 		.subscribe({
 			next: async (data: any) => {
 				console.log("triggered onCreateTodo");
