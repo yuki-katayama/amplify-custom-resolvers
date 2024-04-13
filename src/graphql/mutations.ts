@@ -8,6 +8,16 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const httpPostRequestHeaderResolver = /* GraphQL */ `mutation HttpPostRequestHeaderResolver(
+  $query: MutationHttpPostRequestHeaderResolverQueryInput
+  $body: MutationHttpPostRequestHeaderResolverBodyInput
+) {
+  httpPostRequestHeaderResolver(query: $query, body: $body)
+}
+` as GeneratedMutation<
+  APITypes.HttpPostRequestHeaderResolverMutationVariables,
+  APITypes.HttpPostRequestHeaderResolverMutation
+>;
 export const createMessage = /* GraphQL */ `mutation CreateMessage(
   $input: CreateMessageInput!
   $condition: ModelMessageConditionInput

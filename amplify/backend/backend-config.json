@@ -45,6 +45,50 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "lambdaAccessDynamoDBResolver": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lambdaAccessDynamoResolver": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lambdaPipelineResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "lambdaResolver": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "providerPlugin": "awscloudformation",
@@ -53,6 +97,70 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_lambdaAccessDynamoDBResolver_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaAccessDynamoDBResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaAccessDynamoDBResolver_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaAccessDynamoDBResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaAccessDynamoResolver_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaAccessDynamoResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaAccessDynamoResolver_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaAccessDynamoResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaPipelineResolver_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaPipelineResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaPipelineResolver_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaPipelineResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaResolver_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaResolver_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaResolver"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
@@ -68,9 +176,117 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_streamArn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Message7e7uc22dcfemzglgfz3m3pkfcidev_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Message7e7uc22dcfemzglgfz3m3pkfcidev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_streamArn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
+    },
+    "AMPLIFY_storage_Messagencoly7gesjbdnmmbkrhdu53yladev_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "Messagencoly7gesjbdnmmbkrhdu53yladev"
+        }
+      ]
     }
   },
   "storage": {
+    "Message7e7uc22dcfemzglgfz3m3pkfcidev": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
+    },
+    "Messagencoly7gesjbdnmmbkrhdu53yladev": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
+    },
     "s373d6c8d3": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",

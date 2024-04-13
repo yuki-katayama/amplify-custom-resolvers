@@ -22,10 +22,44 @@
         }
       },
       "storage": {
-        "s373d6c8d3": {}
+        "s373d6c8d3": {},
+        "Messagencoly7gesjbdnmmbkrhdu53yladev": {
+          "tableName": "Message-ncoly7gesjbdnmmbkrhdu53yla-dev",
+          "region": "ap-northeast-1",
+          "arn": "arn:aws:dynamodb:ap-northeast-1:065394252477:table/Message-ncoly7gesjbdnmmbkrhdu53yla-dev",
+          "streamArn": "arn:aws:dynamodb:ap-northeast-1:065394252477:table/Message-ncoly7gesjbdnmmbkrhdu53yla-dev/stream/2024-04-07T09:08:25.620",
+          "partitionKeyName": "id",
+          "partitionKeyType": "S"
+        },
+        "Message7e7uc22dcfemzglgfz3m3pkfcidev": {
+          "tableName": "Message-7e7uc22dcfemzglgfz3m3pkfci-dev",
+          "region": "ap-northeast-1",
+          "arn": "arn:aws:dynamodb:ap-northeast-1:065394252477:table/Message-7e7uc22dcfemzglgfz3m3pkfci-dev",
+          "streamArn": "arn:aws:dynamodb:ap-northeast-1:065394252477:table/Message-7e7uc22dcfemzglgfz3m3pkfci-dev/stream/2024-04-08T13:08:41.422",
+          "partitionKeyName": "id",
+          "partitionKeyType": "S"
+        }
       },
       "auth": {
         "nuxtappsyncba964420": {}
+      },
+      "function": {
+        "lambdaResolver": {
+          "deploymentBucketName": "amplify-nuxtappsync-dev-e7b53-deployment",
+          "s3Key": "amplify-builds/lambdaResolver-66575776624a4e736355-build.zip"
+        },
+        "lambdaPipelineResolver": {
+          "deploymentBucketName": "amplify-nuxtappsync-dev-e7b53-deployment",
+          "s3Key": "amplify-builds/lambdaPipelineResolver-387a4942672f74397a66-build.zip"
+        },
+        "lambdaAccessDynamoResolver": {
+          "deploymentBucketName": "amplify-nuxtappsync-dev-e7b53-deployment",
+          "s3Key": "amplify-builds/lambdaAccessDynamoResolver-41476b39534d4b563466-build.zip"
+        },
+        "lambdaAccessDynamoDBResolver": {
+          "deploymentBucketName": "amplify-nuxtappsync-dev-e7b53-deployment",
+          "s3Key": "amplify-builds/lambdaAccessDynamoDBResolver-672b65592f4e38324b42-build.zip"
+        }
       }
     }
   }

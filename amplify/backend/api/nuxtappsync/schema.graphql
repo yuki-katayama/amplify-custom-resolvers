@@ -2,9 +2,23 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Message @model {
-  id: ID!
-  name: String!
-  content: String
-  img: String
+type Query {
+  lambdaResolver(msg: String): String @function(name: "lambdaResolver-${env}")
+  lambdaPipelineResolver(msg: String): String @function(name: "lambdaResolver-${env}") @function(name: "lambdaPipelineResolver-${env}")
+
+  lambdaAccessDynamoDBResolver(id: String): String @function(name: "lambdaAccessDynamoDBResolver-${env}")
+
+  httpResolver: String @http(url: "https://oobeh6qwba.execute-api.ap-northeast-1.amazonaws.com/Prod/http-resolver", headers: [{ key: "X-Header", value: "X-Header-Value" }])
+  httpRequestHeaderResolver: String @http(url: "https://oobeh6qwba.execute-api.ap-northeast-1.amazonaws.com/Prod/http-resolver")
+  httpPathParamResolver(id: String): String @http(url: "https://oobeh6qwba.execute-api.ap-northeast-1.amazonaws.com/Prod/http-path-param-resolver/:id")
+  httpQueryParamResolver(id: String! name: String! content: String!): String @http(url: "https://oobeh6qwba.execute-api.ap-northeast-1.amazonaws.com/Prod/http-query-resolver/:id")
 }
+
+type Mutation {
+  httpPostRequestHeaderResolver(name: String!, content: String!): String
+    @http(
+      url: "https://oobeh6qwba.execute-api.ap-northeast-1.amazonaws.com/Prod/http-body-resolver",
+      method: POST,
+    )
+}
+

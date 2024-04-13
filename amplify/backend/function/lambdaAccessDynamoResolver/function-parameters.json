@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "storage": {
+      "Messagencoly7gesjbdnmmbkrhdu53yladev": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

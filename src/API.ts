@@ -2,6 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
+export type MutationHttpPostRequestHeaderResolverQueryInput = {
+  name?: string | null,
+  content?: string | null,
+};
+
+export type MutationHttpPostRequestHeaderResolverBodyInput = {
+  name?: string | null,
+  content?: string | null,
+};
+
 export type CreateMessageInput = {
   id?: string | null,
   name: string,
@@ -81,6 +91,19 @@ export type DeleteMessageInput = {
   id: string,
 };
 
+export type QueryHttpPathParamResolverParamsInput = {
+  id: string,
+};
+
+export type QueryHttpQueryParamResolverParamsInput = {
+  id: string,
+};
+
+export type QueryHttpQueryParamResolverQueryInput = {
+  name: string,
+  content: string,
+};
+
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -156,6 +179,15 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type HttpPostRequestHeaderResolverMutationVariables = {
+  query?: MutationHttpPostRequestHeaderResolverQueryInput | null,
+  body?: MutationHttpPostRequestHeaderResolverBodyInput | null,
+};
+
+export type HttpPostRequestHeaderResolverMutation = {
+  httpPostRequestHeaderResolver?: string | null,
+};
+
 export type CreateMessageMutationVariables = {
   input: CreateMessageInput,
   condition?: ModelMessageConditionInput | null,
@@ -205,6 +237,77 @@ export type DeleteMessageMutation = {
     createdAt: string,
     updatedAt: string,
   } | null,
+};
+
+export type LambdaResolverQueryVariables = {
+  msg?: string | null,
+};
+
+export type LambdaResolverQuery = {
+  lambdaResolver?: string | null,
+};
+
+export type LambdaPipelineResolverQueryVariables = {
+  msg?: string | null,
+};
+
+export type LambdaPipelineResolverQuery = {
+  lambdaPipelineResolver?: string | null,
+};
+
+export type LambdaAccessDynamoResolverQueryVariables = {
+  id?: string | null,
+};
+
+export type LambdaAccessDynamoResolverQuery = {
+  lambdaAccessDynamoResolver?:  {
+    __typename: "Message",
+    id: string,
+    name: string,
+    content?: string | null,
+    img?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type LambdaAccessDynamoDBResolverQueryVariables = {
+  id?: string | null,
+};
+
+export type LambdaAccessDynamoDBResolverQuery = {
+  lambdaAccessDynamoDBResolver?: string | null,
+};
+
+export type HttpResolverQueryVariables = {
+};
+
+export type HttpResolverQuery = {
+  httpResolver?: string | null,
+};
+
+export type HttpRequestHeaderResolverQueryVariables = {
+};
+
+export type HttpRequestHeaderResolverQuery = {
+  httpRequestHeaderResolver?: string | null,
+};
+
+export type HttpPathParamResolverQueryVariables = {
+  params: QueryHttpPathParamResolverParamsInput,
+};
+
+export type HttpPathParamResolverQuery = {
+  httpPathParamResolver?: string | null,
+};
+
+export type HttpQueryParamResolverQueryVariables = {
+  params: QueryHttpQueryParamResolverParamsInput,
+  query: QueryHttpQueryParamResolverQueryInput,
+};
+
+export type HttpQueryParamResolverQuery = {
+  httpQueryParamResolver?: string | null,
 };
 
 export type GetMessageQueryVariables = {
